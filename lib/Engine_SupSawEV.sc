@@ -66,14 +66,14 @@ Engine_SupSawEV : CroneEngine {
       detuneFactor = freq * detuneCurve.(detune);
       freqs = [
         (freq - (detuneFactor * 0.11002313)),
-        // (freq - (detuneFactor * 0.06288439)),
+        (freq - (detuneFactor * 0.06288439)),
         (freq - (detuneFactor * 0.01952356)),
-        // (freq + (detuneFactor * 0)),
         (freq + (detuneFactor * 0.01991221)),
-        // (freq + (detuneFactor * 0.06216538)),
+        (freq + (detuneFactor * 0.06216538)),
         (freq + (detuneFactor * 0.10745242))
       ];
-      side = Mix.fill(4, { |n|
+      
+      side = Mix.fill(6, { |n|
         LFSaw.ar(freqs[n], Rand(0, 2))
       });
 
