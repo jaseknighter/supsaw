@@ -74,7 +74,7 @@ function init()
 
   -- absorb control
   params:add_control('eng_absorb', 'absorb', 
-  controlspec.new(0,3,'lin',0.001,0.1, '', 0.005))  
+  controlspec.new(0,1,'lin',0.001,0.1, '', 0.005))  
   params:set_action('eng_absorb',
     function(x)
       engine.detune(x)
