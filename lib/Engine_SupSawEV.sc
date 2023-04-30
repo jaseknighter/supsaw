@@ -5,19 +5,6 @@
 
 //emulation of erbeverb reverb by alanza: https://discord.com/channels/765746584582750248/789941892812242954/1099343587205972091
 
-
-
-//////////////////////////////////////
-// notes and todo list:
-//    notes: 
-//      note frequency is limited to 0.2 to prevent loud noises 
-//        see https://doc.sccode.org/Classes/BPF.html for details
-//
-//    todo list: 
-//      figure out why rqmin can be set higher than rqmax and still work
-//      remove unused variables/functions e.g. for gain, pan, etc.
-//////////////////////////////////////
-
 Engine_SupSawEV : CroneEngine {
   var voiceGroup;
   var <voices;
