@@ -53,8 +53,8 @@ Engine_SupSawEV : CroneEngine {
     SynthDef(\superSaw,{
       arg out,freq = 523.3572, mix=0.75, detune = 0.75, amp=1;
       var env = Env(
-        levels: [0, 0.1, 0.7, 0.2],
-        times: [0.5, 2, 3],
+        levels: [0, 0.1, 1, 0.2],
+        times: [0.5, 3, 3],
         curve: 8);
 
       var detuneCurve = { |x|
@@ -79,20 +79,19 @@ Engine_SupSawEV : CroneEngine {
       detuneFactor = freq * detuneCurve.(detune);
       freqs = [
         (freq - (detuneFactor * 0.11002313)),
-        (freq - (detuneFactor * 0.06288439)),
+        // (freq - (detuneFactor * 0.06288439)),
         (freq - (detuneFactor * 0.01952356)),
         // (freq + (detuneFactor * 0)),
         (freq + (detuneFactor * 0.01991221)),
-        (freq + (detuneFactor * 0.06216538)),
+        // (freq + (detuneFactor * 0.06216538)),
         (freq + (detuneFactor * 0.10745242))
       ];
-      side = Mix.fill(6, { |n|
+      side = Mix.fill(4, { |n|
         LFSaw.ar(freqs[n], Rand(0, 2))
       });
 
       sig = (center * centerGain.(mix)) + (side * sideGain.(mix));
 
-      // sig = HPF.ar(sig ! 2, MouseX.kr(20,1400));
       sig = HPF.ar(sig ! 2, freq);
 
 
@@ -100,7 +99,7 @@ Engine_SupSawEV : CroneEngine {
       //add-ons
       /////////////////
       // moog ladder filter
-      // sig = MoogLadder.ar(Mix(sig ! 2), LinExp.kr(LFCub.kr(0.1, 0.5*pi), -1, 1, 1800, 8500), 0.75);
+      sig = MoogLadder.ar(Mix(sig ! 2), LinExp.kr(LFCub.kr(0.1, 0.5*pi), -1, 1, 400, 8500), 0.75);
 
       Out.ar(out,sig*amp*EnvGen.kr(env,doneAction: Done.freeSelf));
       // Out.ar(out,sig*amp);
